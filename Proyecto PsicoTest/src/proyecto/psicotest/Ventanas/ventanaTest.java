@@ -136,13 +136,13 @@ if (JFileChooser.APPROVE_OPTION == resultado){
 
                ImageIcon icon = new ImageIcon(fichero.toString());
 
-               Icon icono = new ImageIcon(icon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
+               //Icon icono = new ImageIcon(icon.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
 
 
 
 lblFoto.setText(null);
                
-               lblFoto.setIcon( icono );
+               //lblFoto.setIcon( icono );
                
 
         }catch(Exception ex){
