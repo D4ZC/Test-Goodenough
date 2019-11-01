@@ -109,7 +109,7 @@ public class Goodenough extends javax.swing.JFrame {
                 "La línea del cuello es la continuación de la línea de la cabeza y del tronco.",
                 "No tiene cuello o la línea de este no se une continuamente a la cabeza y el tronco."));
         opciones.add(new Opcion(
-                "7a) Precenciaa de ojos",
+                "7a) Precencia de ojos",
                 "Si está de frente, tiene ambos ojos.\nSi está de perfil, tiene un solo ojo.",
                 "Carece de ojos."));
         opciones.add(new Opcion(
