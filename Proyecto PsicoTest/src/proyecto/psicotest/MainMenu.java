@@ -11,15 +11,14 @@ import proyecto.psicotest.Ventanas.Machover;
 
 /**
  *
- * @author Yooma
+ * @author D4ZC & Yooma
  */
 public class MainMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainMenu
-     */
+   
     public MainMenu() {
         initComponents();
+        this.setLocationRelativeTo(null); /**Centrar la pantalla de inicio*/
     }
 
     /**
@@ -31,22 +30,26 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitulo = new javax.swing.JLabel();
         btnGoodenough = new javax.swing.JButton();
         btnMachover = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 2, 48)); // NOI18N
-        lblTitulo.setText("PSYCHO TEST");
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnGoodenough.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnGoodenough.setText("Goodenough");
+        btnGoodenough.setBorder(null);
+        btnGoodenough.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGoodenough.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGoodenoughActionPerformed(evt);
             }
         });
+        getContentPane().add(btnGoodenough, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 180, 50));
 
         btnMachover.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnMachover.setText("Machover");
@@ -55,45 +58,48 @@ public class MainMenu extends javax.swing.JFrame {
                 btnMachoverActionPerformed(evt);
             }
         });
+        getContentPane().add(btnMachover, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 460, 180, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMachover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnGoodenough, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
-                .addComponent(btnGoodenough, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMachover, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/exit.png"))); // NOI18N
+        jButton1.setText("X");
+        jButton1.setToolTipText("");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setMaximumSize(new java.awt.Dimension(50, 50));
+        jButton1.setMinimumSize(new java.awt.Dimension(50, 50));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 60, 20));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/output-onlinepngtools.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 310));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/ImagenHumana.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, -40, 570, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       System.exit(0); /*Salir del programa*/
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void btnGoodenoughActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoodenoughActionPerformed
-        Goodenough ge = new Goodenough(this);
-        ge.setVisible(true);
-        this.setVisible(false);
+        
+            Goodenough x = new Goodenough (this);
+            x.setVisible(true);
+                    
     }//GEN-LAST:event_btnGoodenoughActionPerformed
 
     private void btnMachoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMachoverActionPerformed
-        Machover ma = new Machover(this);
-        ma.setVisible(true);
-        this.setVisible(false);
+        Machover y = new Machover (this);
+            y.setVisible(true);
     }//GEN-LAST:event_btnMachoverActionPerformed
 
     /**
@@ -134,6 +140,9 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGoodenough;
     private javax.swing.JButton btnMachover;
-    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
+

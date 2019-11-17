@@ -201,11 +201,11 @@ public class Goodenough extends javax.swing.JFrame {
                 "Los pies son más largos que altos, aproximadamente 1/3 que las piernas. El largo del pie es igual a 1/10 que las pernas.",
                 "Pies como palos de golf."));
         opciones.add(new Opcion(
-                "12e) Porporción de pies y brazos en dos dimensiones",
+                "12e) Proporción de pies y brazos en dos dimensiones",
                 "Tanto los pies como los brazos son dibujados en dos dismensiones, incluso si las manos son simples líneas.",
                 "Brazos y pies de palo."));
         opciones.add(new Opcion(
-                "13) Represetnación del taco",
+                "13) Representación del taco",
                 "Cualquier forma que represente clarametne el taco. También en los dibujos de frente con pie en perspectiva.",
                 "No se distingue el taco."));
         opciones.add(new Opcion(
