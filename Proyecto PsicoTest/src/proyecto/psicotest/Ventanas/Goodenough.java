@@ -310,7 +310,7 @@ public class Goodenough extends javax.swing.JFrame {
 
         imgDibujo.setBackground(new java.awt.Color(255, 255, 255));
         imgDibujo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgDibujo.setText("doble clic");
+        imgDibujo.setText("Pulsa para cargar imagen");
         imgDibujo.setToolTipText("");
         imgDibujo.setOpaque(true);
         imgDibujo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -324,6 +324,11 @@ public class Goodenough extends javax.swing.JFrame {
 
         radOpcion1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion1.setText("Positivo");
+        radOpcion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radOpcion1ActionPerformed(evt);
+            }
+        });
 
         radOpcion2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion2.setText("Negativo");
@@ -361,6 +366,11 @@ public class Goodenough extends javax.swing.JFrame {
         btnFinalizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFinalizarMouseClicked(evt);
+            }
+        });
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
             }
         });
 
@@ -472,6 +482,17 @@ public class Goodenough extends javax.swing.JFrame {
                 "Error", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnFinalizarMouseClicked
 
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        ventanaDatos abrir = new ventanaDatos(); //Abrir la ventana del formulario al terminar de llenar el Test
+        abrir.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void radOpcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radOpcion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radOpcion1ActionPerformed
+
     private void siguienteOpcion() {
         
         if (calificacion.get(actual) == null || calificacion.get(actual) != Califica()) {
@@ -555,8 +576,8 @@ public class Goodenough extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.ButtonGroup radGroup;
-    private javax.swing.JRadioButton radOpcion1;
-    private javax.swing.JRadioButton radOpcion2;
+    public static javax.swing.JRadioButton radOpcion1;
+    public static javax.swing.JRadioButton radOpcion2;
     private javax.swing.JTextArea txtOpcion1;
     private javax.swing.JTextArea txtOpcion2;
     // End of variables declaration//GEN-END:variables

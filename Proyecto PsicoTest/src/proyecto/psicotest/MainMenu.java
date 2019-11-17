@@ -41,6 +41,7 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnGoodenough.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnGoodenough.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/testIicon.png"))); // NOI18N
         btnGoodenough.setText("Goodenough");
         btnGoodenough.setBorder(null);
         btnGoodenough.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -52,6 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().add(btnGoodenough, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 180, 50));
 
         btnMachover.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnMachover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/testIicon.png"))); // NOI18N
         btnMachover.setText("Machover");
         btnMachover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,8 +64,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/exit.png"))); // NOI18N
-        jButton1.setText("X");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/salirIcon.png"))); // NOI18N
         jButton1.setToolTipText("");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setBorderPainted(false);
@@ -75,7 +76,7 @@ public class MainMenu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 60, 20));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 60, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/img/output-onlinepngtools.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 310));
