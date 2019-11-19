@@ -26,19 +26,20 @@ import proyecto.psicotest.MainMenu;
  *
  * @author Yooma
  */
-class Opcion {
-    public String titulo;
-    public String positiva;
-    public String negativa;
-    
-    public Opcion(String t, String p, String n) {
-        titulo = t;
-        positiva = p;
-        negativa = n;
-    }
-}
 
 public class Goodenough extends javax.swing.JFrame {
+    class Opcion {
+        public String titulo;
+        public String positiva;
+        public String negativa;
+
+        public Opcion(String t, String p, String n) {
+            titulo = t;
+            positiva = p;
+            negativa = n;
+        }
+    }
+    
     enum Calificacion {
     NEGATIVO, POSITIVO, INDETERMINADO;
     }
@@ -319,7 +320,7 @@ public class Goodenough extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitulo.setText("Cabeza");
 
         radOpcion1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

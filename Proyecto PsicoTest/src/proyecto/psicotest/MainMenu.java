@@ -95,12 +95,13 @@ public class MainMenu extends javax.swing.JFrame {
         
             Goodenough x = new Goodenough (this);
             x.setVisible(true);
-                    
+            this.setVisible(false);
     }//GEN-LAST:event_btnGoodenoughActionPerformed
 
     private void btnMachoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMachoverActionPerformed
         Machover y = new Machover (this);
-            y.setVisible(true);
+        y.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMachoverActionPerformed
 
     /**
