@@ -69,19 +69,19 @@ public class Goodenough extends javax.swing.JFrame {
         
         // Diferentes preguntas
         opciones.add(new Opcion(
-                "1) Precencia de cabeza",
+                "1) Presencia de cabeza",
                 "Tiene contorno bien definido.",
                 "No tiene contorno"));
         opciones.add(new Opcion(
-                "2) Precencia de piernas",
+                "2) Presencia de piernas",
                 "Tiene dos piernas o una sola con dos pies.",
                 "No tiene piernas o están desprendidas del tronco"));
         opciones.add(new Opcion(
-                "3) Precencia de brazos",
+                "3) Presencia de brazos",
                 "El dibujo es de frente y los brazos tienen dos intersecciones.", 
                 "El dibujo es de perfil o tiene un solo brazo."));
         opciones.add(new Opcion(
-                "4a) Precencia de tronco",
+                "4a) Presencia de tronco",
                 "El tronco está bien definido.\nExiste una diferencia clara de cabeza y tronco.",
                 "Tiene una hilera de botones extendida hacia abajo entre ambas piernas y no trazó una horizontal para figurar el tronco."));
         opciones.add(new Opcion(
@@ -101,7 +101,7 @@ public class Goodenough extends javax.swing.JFrame {
                 "Si está de frente y tiene hombros, los brazos están unidos a estos.\nSi está de perfil, los brazos están poco debajo del cuello.\nSi no tiene hombros, los brazos están donde deberían estar los hombros.",
                 "Tiene hombros pero los brazos no están pegados a estos.\nLos brazos están unidos en otra parte distinta (en el cuello, en las piernas, en el abdomen)."));
         opciones.add(new Opcion(
-                "6a) Precencia de cuello",
+                "6a) Presencia de cuello",
                 "El cuello se diferencia de la cabeza y el tronco.",
                 "La cabeza está yuxtapuesta en el tronco."));
         opciones.add(new Opcion(
@@ -109,15 +109,15 @@ public class Goodenough extends javax.swing.JFrame {
                 "La línea del cuello es la continuación de la línea de la cabeza y del tronco.",
                 "No tiene cuello o la línea de este no se une continuamente a la cabeza y el tronco."));
         opciones.add(new Opcion(
-                "7a) Precencia de ojos",
+                "7a) Presencia de ojos",
                 "Si está de frente, tiene ambos ojos.\nSi está de perfil, tiene un solo ojo.",
                 "Carece de ojos."));
         opciones.add(new Opcion(
-                "7b) Precencia de nariz",
+                "7b) Presencia de nariz",
                 "Tiene cualquier forma que represente una nariz.",
                 "Carece completamente de cualquier indicio de nariz."));
         opciones.add(new Opcion(
-                "7c) Precencia de boca",
+                "7c) Presencia de boca",
                 "Tiene cualquier forma que indique una boca.",
                 "Carece completamente de boca."));
         opciones.add(new Opcion(
@@ -129,7 +129,7 @@ public class Goodenough extends javax.swing.JFrame {
                 "Cualquier indicación clara de concavidad enla parte inferior de la nariz.",
                 "Nariz plana sin orificios ni concavidad."));
         opciones.add(new Opcion(
-                "8a) Precencia de cabello",
+                "8a) Presencia de cabello",
                 "Cualquier indicación de que existe cabello.",
                 "Completamente calvo."));
         opciones.add(new Opcion(
@@ -137,7 +137,7 @@ public class Goodenough extends javax.swing.JFrame {
                 "Los cabellos exceden la circunferencia de la cabeza, no son transparentes, no son garabatos y el contorno del cráneo no se ve a través del cabello.",
                 "No cumple con las tres anteriores."));
         opciones.add(new Opcion(
-                "9a) Precencia de ropa",
+                "9a) Presencia de ropa",
                 "Cualquier indicación de prendas de vestir (botones, sombrero, lineas horizontales en el tronco, etc).",
                 "Ningún indicio de vestimenta."));
         opciones.add(new Opcion(
@@ -310,7 +310,7 @@ public class Goodenough extends javax.swing.JFrame {
 
         imgDibujo.setBackground(new java.awt.Color(255, 255, 255));
         imgDibujo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgDibujo.setText("doble clic");
+        imgDibujo.setText("Pulsa para cargar imagen");
         imgDibujo.setToolTipText("");
         imgDibujo.setOpaque(true);
         imgDibujo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,11 +319,16 @@ public class Goodenough extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTitulo.setText("Cabeza");
 
         radOpcion1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion1.setText("Positivo");
+        radOpcion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radOpcion1ActionPerformed(evt);
+            }
+        });
 
         radOpcion2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion2.setText("Negativo");
@@ -363,6 +368,11 @@ public class Goodenough extends javax.swing.JFrame {
                 btnFinalizarMouseClicked(evt);
             }
         });
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -371,51 +381,47 @@ public class Goodenough extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imgDibujo, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(radOpcion2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radOpcion1, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnAnterior)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnFinalizar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSiguiente)))))
+                                .addComponent(btnSiguiente))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radOpcion1)
+                                    .addComponent(radOpcion2))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(imgDibujo, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(radOpcion1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(radOpcion2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(imgDibujo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -471,6 +477,17 @@ public class Goodenough extends javax.swing.JFrame {
                 null, "Has respondido a " + String.valueOf(51 - Collections.frequency(calificacion, null)) + " / 51",
                 "Error", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnFinalizarMouseClicked
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        ventanaDatos abrir = new ventanaDatos(); //Abrir la ventana del formulario al terminar de llenar el Test
+        abrir.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void radOpcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radOpcion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radOpcion1ActionPerformed
 
     private void siguienteOpcion() {
         
@@ -555,8 +572,8 @@ public class Goodenough extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.ButtonGroup radGroup;
-    private javax.swing.JRadioButton radOpcion1;
-    private javax.swing.JRadioButton radOpcion2;
+    public static javax.swing.JRadioButton radOpcion1;
+    public static javax.swing.JRadioButton radOpcion2;
     private javax.swing.JTextArea txtOpcion1;
     private javax.swing.JTextArea txtOpcion2;
     // End of variables declaration//GEN-END:variables
