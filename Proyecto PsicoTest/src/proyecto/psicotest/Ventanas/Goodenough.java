@@ -539,7 +539,7 @@ public class Goodenough extends javax.swing.JFrame {
             return;
         }
         
-        GoodenoughReporte abrir = new GoodenoughReporte(mm, img, calificacion, opciones); //Abrir la ventana del formulario al terminar de llenar el Test
+        GoodenoughReporte abrir = new GoodenoughReporte(mm, img, calificacion, opciones, img_pos, img_sca); //Abrir la ventana del formulario al terminar de llenar el Test
         abrir.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnFinalizarMouseClicked
