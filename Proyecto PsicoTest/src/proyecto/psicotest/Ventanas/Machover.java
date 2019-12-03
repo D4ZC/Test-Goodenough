@@ -356,12 +356,22 @@ public class Machover extends javax.swing.JFrame {
                 lstElDibujoEsMouseClicked(evt);
             }
         });
+        lstElDibujoEs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lstElDibujoEsKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(lstElDibujoEs);
 
         lstElDibujoNoEs.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lstElDibujoNoEs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstElDibujoNoEsMouseClicked(evt);
+            }
+        });
+        lstElDibujoNoEs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lstElDibujoNoEsKeyPressed(evt);
             }
         });
         jScrollPane4.setViewportView(lstElDibujoNoEs);
@@ -443,6 +453,7 @@ public class Machover extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnteriorMouseClicked
 
     private void btnFinalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseClicked
+        /*
         String s = "Dado lo que respondió el paciente, su diagnóstico es el siguiente:\n\n";
         for (int i=0; i<opciones.size(); ++i) {
             Opcion op = opciones.get(i);
@@ -452,6 +463,10 @@ public class Machover extends javax.swing.JFrame {
             }
         }
         JOptionPane.showMessageDialog(null, s, "Respuestas", JOptionPane.INFORMATION_MESSAGE);
+        */
+        MachoverReporte abrir = new MachoverReporte(mm, img, opciones, img_pos, img_sca); //Abrir la ventana del formulario al terminar de llenar el Test
+        abrir.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnFinalizarMouseClicked
 
     private static BufferedImage resize(BufferedImage img, int width, int height) {
@@ -582,6 +597,24 @@ public class Machover extends javax.swing.JFrame {
         
         img_repaint();
     }//GEN-LAST:event_imgDibujoMouseWheelMoved
+
+    private void lstElDibujoEsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstElDibujoEsKeyPressed
+        
+        int index = lstElDibujoEs.getSelectedIndex();
+        lstModelNoEs.addElement(lstModelEs.get(index));
+        lstModelEs.remove(index);
+        
+        recalcularSeleccionados();
+    }//GEN-LAST:event_lstElDibujoEsKeyPressed
+
+    private void lstElDibujoNoEsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstElDibujoNoEsKeyPressed
+        
+        int index = lstElDibujoNoEs.getSelectedIndex();
+        lstModelEs.addElement(lstModelNoEs.get(index));
+        lstModelNoEs.remove(index);
+        
+        recalcularSeleccionados();
+    }//GEN-LAST:event_lstElDibujoNoEsKeyPressed
 
     // Actualiza el campo "tiene" de las opciones para registrar si fue seleccionado o no
     private void recalcularSeleccionados() {
