@@ -5,16 +5,25 @@
  */
 package proyecto.psicotest.Ventanas;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.List;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Double.max;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -54,6 +63,9 @@ public class Goodenough extends javax.swing.JFrame {
     MainMenu mm;
     final JFileChooser fc = new JFileChooser();
     BufferedImage img = null;
+    Point img_pos = new Point(0,0);
+    Point2D.Double img_sca = new Point2D.Double(1,1);
+    Point mouse_pos;
     
     int actual = 0;
     ArrayList<Opcion> opciones = new ArrayList<Opcion>();
@@ -275,9 +287,12 @@ public class Goodenough extends javax.swing.JFrame {
                 "La figura tiene un perfil incorecto."));
         
         Opcion op = opciones.get(actual);
-        lblTitulo.setText(op.titulo);
+        //lblTitulo.setText(op.titulo);
         txtOpcion1.setText(op.positiva);
         txtOpcion2.setText(op.negativa);
+        
+        cbxTitulo.addItem(op.titulo);
+        cbxTitulo.setSelectedIndex(0);
     }
 
     /**
@@ -291,7 +306,6 @@ public class Goodenough extends javax.swing.JFrame {
 
         radGroup = new javax.swing.ButtonGroup();
         imgDibujo = new javax.swing.JLabel();
-        lblTitulo = new javax.swing.JLabel();
         radOpcion1 = new javax.swing.JRadioButton();
         radOpcion2 = new javax.swing.JRadioButton();
         btnSiguiente = new javax.swing.JButton();
@@ -301,6 +315,7 @@ public class Goodenough extends javax.swing.JFrame {
         txtOpcion1 = new javax.swing.JTextArea();
         btnAnterior = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
+        cbxTitulo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -314,25 +329,40 @@ public class Goodenough extends javax.swing.JFrame {
         imgDibujo.setText("Pulsa para cargar imagen");
         imgDibujo.setToolTipText("");
         imgDibujo.setOpaque(true);
+        imgDibujo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imgDibujoMouseDragged(evt);
+            }
+        });
+        imgDibujo.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                imgDibujoMouseWheelMoved(evt);
+            }
+        });
         imgDibujo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imgDibujoMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imgDibujoMousePressed(evt);
+            }
         });
-
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTitulo.setText("Cabeza");
 
         radOpcion1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion1.setText("Positivo");
-        radOpcion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radOpcion1ActionPerformed(evt);
+        radOpcion1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                radOpcion1KeyPressed(evt);
             }
         });
 
         radOpcion2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         radOpcion2.setText("Negativo");
+        radOpcion2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                radOpcion2KeyPressed(evt);
+            }
+        });
 
         btnSiguiente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSiguiente.setText("Siguiente");
@@ -342,13 +372,17 @@ public class Goodenough extends javax.swing.JFrame {
             }
         });
 
+        txtOpcion2.setEditable(false);
         txtOpcion2.setColumns(20);
+        txtOpcion2.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         txtOpcion2.setLineWrap(true);
         txtOpcion2.setRows(5);
         txtOpcion2.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtOpcion2);
 
+        txtOpcion1.setEditable(false);
         txtOpcion1.setColumns(20);
+        txtOpcion1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         txtOpcion1.setLineWrap(true);
         txtOpcion1.setRows(5);
         txtOpcion1.setWrapStyleWord(true);
@@ -369,9 +403,11 @@ public class Goodenough extends javax.swing.JFrame {
                 btnFinalizarMouseClicked(evt);
             }
         });
-        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFinalizarActionPerformed(evt);
+
+        cbxTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cbxTitulo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxTituloItemStateChanged(evt);
             }
         });
 
@@ -382,7 +418,7 @@ public class Goodenough extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxTitulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imgDibujo, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -406,8 +442,8 @@ public class Goodenough extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbxTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(radOpcion1)
@@ -429,16 +465,37 @@ public class Goodenough extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private static BufferedImage resize(BufferedImage img, int width, int height) {
+        //Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image tmp = img;
+        BufferedImage resized = new BufferedImage(
+                (int) max(img.getWidth(), width), 
+                (int) max(img.getHeight(), height), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
+    }
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         mm.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
     private void imgDibujoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDibujoMouseClicked
+        if (evt.getClickCount() != 2)
+            return;
+        
         if (fc.showDialog(this, "Aceptar") == 0)
         {
             try {
-                img = ImageIO.read(fc.getSelectedFile());
+                img_pos.x = 0;
+                img_pos.y = 0;
+                img_sca.x = 1;
+                img_sca.y = 1;
+    
+                img = resize(ImageIO.read(fc.getSelectedFile()), imgDibujo.getWidth(), imgDibujo.getHeight());
                 
+                imgDibujo.setText("");
                 imgDibujo.setIcon(new ImageIcon(img));
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "La imagen seleccionada no pudo ser abierta.\n"+e.toString(),
@@ -474,30 +531,123 @@ public class Goodenough extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnteriorMouseClicked
 
     private void btnFinalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseClicked
-        JOptionPane.showMessageDialog(
+        if (51 - Collections.frequency(calificacion, null) < 51)
+        {
+            JOptionPane.showMessageDialog(
                 null, "Has respondido a " + String.valueOf(51 - Collections.frequency(calificacion, null)) + " / 51",
                 "Error", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        GoodenoughReporte abrir = new GoodenoughReporte(mm, img, calificacion, opciones); //Abrir la ventana del formulario al terminar de llenar el Test
+        abrir.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnFinalizarMouseClicked
 
-    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        ventanaDatos abrir = new ventanaDatos(); //Abrir la ventana del formulario al terminar de llenar el Test
-        abrir.setVisible(true);
-        this.setVisible(false);
+    private void img_repaint()
+    {
+        if (img == null)
+            return;
         
-    }//GEN-LAST:event_btnFinalizarActionPerformed
+        int w = img.getWidth();
+        int h = img.getHeight();
+        
+        BufferedImage newimg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        
+        AffineTransform at = new AffineTransform();
+        at.scale(img_sca.x, img_sca.y);
+        at.translate(img_pos.x, img_pos.y);
+        
+        AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        newimg = scaleOp.filter(img, newimg);
+        
+        imgDibujo.setIcon(new ImageIcon(newimg));
+        
+        imgDibujo.repaint();
+    }
+    
+    private void imgDibujoMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_imgDibujoMouseWheelMoved
+        img_sca.x -= evt.getWheelRotation() * 0.1;
+        img_sca.y -= evt.getWheelRotation() * 0.1;
+        
+        if (img_sca.x <= 0) img_sca.x = 0.1;
+        if (img_sca.y <= 0) img_sca.y = 0.1;
+        if (img_sca.x > 10) img_sca.x = 10;
+        if (img_sca.y > 10) img_sca.y = 10;
+        
+        img_repaint();
+    }//GEN-LAST:event_imgDibujoMouseWheelMoved
 
-    private void radOpcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radOpcion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radOpcion1ActionPerformed
+    private void imgDibujoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDibujoMouseDragged
+        //System.out.println("Mouse moved at " + evt.getPoint().toString());
+        
+        img_pos.x += evt.getX() - mouse_pos.x;
+        img_pos.y += evt.getY() - mouse_pos.y;
+        
+        mouse_pos = evt.getPoint();
+        img_repaint();
+    }//GEN-LAST:event_imgDibujoMouseDragged
+
+    private void imgDibujoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDibujoMousePressed
+        //System.out.println("Mouse pressed at " + evt.getPoint().toString());
+        mouse_pos = evt.getPoint();
+        img_repaint();
+    }//GEN-LAST:event_imgDibujoMousePressed
+
+    private void cbxTituloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxTituloItemStateChanged
+        actual = cbxTitulo.getSelectedIndex();
+        Opcion op = opciones.get(actual);
+        
+        txtOpcion1.setText(op.positiva);
+        txtOpcion2.setText(op.negativa);
+        
+        radGroup.clearSelection();
+        radOpcion1.setSelected(calificacion.get(actual) == Calificacion.POSITIVO);
+        radOpcion2.setSelected(calificacion.get(actual) == Calificacion.NEGATIVO);
+    }//GEN-LAST:event_cbxTituloItemStateChanged
+
+    private void radOpcion1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_radOpcion1KeyPressed
+        if (radOpcion1.isSelected() || radOpcion2.isSelected()){
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER && actual < 51){
+                siguienteOpcion();
+            } else if (actual == 50) {
+                btnFinalizarMouseClicked(null);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar alguna opción.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_radOpcion1KeyPressed
+
+    private void radOpcion2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_radOpcion2KeyPressed
+        if (radOpcion1.isSelected() || radOpcion2.isSelected()){
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER && actual < 51){
+                siguienteOpcion();
+            } else if (actual == 50) {
+                btnFinalizarMouseClicked(null);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar alguna opción.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_radOpcion2KeyPressed
 
     private void siguienteOpcion() {
         
         if (calificacion.get(actual) == null || calificacion.get(actual) != Califica()) {
             calificacion.set(actual, Califica());
         }
+        if (actual+1 >= opciones.size())
+            return;
+        
         ++actual;
         Opcion op = opciones.get(actual);
-        lblTitulo.setText(op.titulo);
+        
+        if (((DefaultComboBoxModel)cbxTitulo.getModel()).getIndexOf(op.titulo) == -1)
+            cbxTitulo.addItem(op.titulo);
+        
+        cbxTitulo.setSelectedIndex(actual);
+        
         txtOpcion1.setText(op.positiva);
         txtOpcion2.setText(op.negativa);
         
@@ -521,7 +671,9 @@ public class Goodenough extends javax.swing.JFrame {
     private void anteriorOpcion() {
         --actual;
         Opcion op = opciones.get(actual);
-        lblTitulo.setText(op.titulo);
+        
+        cbxTitulo.setSelectedIndex(actual);
+        
         txtOpcion1.setText(op.positiva);
         txtOpcion2.setText(op.negativa);
         
@@ -568,10 +720,10 @@ public class Goodenough extends javax.swing.JFrame {
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JComboBox<String> cbxTitulo;
     private javax.swing.JLabel imgDibujo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.ButtonGroup radGroup;
     public static javax.swing.JRadioButton radOpcion1;
     public static javax.swing.JRadioButton radOpcion2;
